@@ -1,0 +1,15 @@
+{
+  "name": "metadata-creator",
+  "version": "1.0.0",
+  "description": "A metadata management tool for organizing and managing tag categories",
+  "author": "Mis Fortune",
+  "license": "MIT",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}

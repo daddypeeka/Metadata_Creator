@@ -12,17 +12,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-22.04, windows-latest]
-        args:
-          - --target universal-apple-darwin
-          - ''
-          - ''
         include:
-          - platform: macos-latest
-            args: --target universal-apple-darwin
-          - platform: ubuntu-22.04
+          - platform: 'macos-latest'
+            args: '--target universal-apple-darwin'
+          - platform: 'ubuntu-22.04'
             args: ''
-          - platform: windows-latest
+          - platform: 'windows-latest'
             args: ''
 
     runs-on: ${{ matrix.platform }}
@@ -53,6 +48,9 @@ jobs:
 
       - name: Install frontend dependencies
         run: npm install
+
+      - name: Install Tauri CLI
+        run: npm install -g @tauri-apps/cli
 
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
