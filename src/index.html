@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Creator</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Metadata Creator</h1>
+            <div class="header-actions">
+                <button class="action-btn" id="openBtn">Open</button>
+                <button class="action-btn" id="saveBtn">Save</button>
+            </div>
+        </div>
+        
+        <div class="tag-category-section-container">
+            <div class="tag-category-section-header">
+                <div class="tag-category-section-title">
+                    <h3>Tag Category Management</h3>
+                </div>
+                <button class="section-collapse-btn" id="sectionCollapseBtn">▶</button>
+            </div>
+            <div class="tag-category-section collapsed" id="tagCategorySection">
+                <!-- Tag categories will be added here dynamically -->
+                
+                <div class="add-tag-category-actions">
+                    <button class="add-tag-category-btn" id="addTagCategoryBtn">Add New Tag Category</button>
+                    <button class="import-tag-category-btn" id="importTagCategoryBtn">Import Tag Category</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">Category Management</div>
+        <div class="category-section" id="categorySection">
+            <!-- Categories will be added here dynamically -->
+        </div>
+        
+        <div class="add-category-btn" id="addCategoryBtn">Add New Category</div>
+        
+        <div class="output-section">
+            <div class="output-label">Output Result</div>
+            <div class="output-text" id="outputText"></div>
+        </div>
+    </div>
+    
+    <script src="js/tagSystem.js"></script>
+    <script src="js/categoryUI.js"></script>
+    <script src="js/tagCategoryUI.js"></script>
+    <script src="js/fileOperations.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
