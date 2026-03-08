@@ -1,0 +1,28 @@
+{
+  "tagCategories": {
+    "genre": {
+      "name": "Genre",
+      "tags": ["Video Game", "Anime", "Rock", "Pop", "Other", "Novelty", "Hip Hop", "Electronic", "Metal", "Classical", "Folk", "Jazz"]
+    },
+    "language": {
+      "name": "Language",
+      "tags": ["English", "Chinese", "French", "German", "Italian", "Japanese", "Korean", "Spanish", "Swedish", "Russian", "Polish", "Instrumental", "Unspecified", "Other"]
+    },
+    "featured_artist": {
+      "name": "Featured Artist & Mappers' Guild",
+      "tags": ["Featured Artist", "fa", "mpg", "mg", "mappers' guild"]
+    }
+  },
+  "categories": [
+    {
+      "name": "Genre",
+      "tagCategory": "genre",
+      "tags": ["Video Game"]
+    },
+    {
+      "name": "Language",
+      "tagCategory": "language",
+      "tags": ["English"]
+    }
+  ]
+}

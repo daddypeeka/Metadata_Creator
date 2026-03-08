@@ -25,11 +25,24 @@ async function init() {
     // Create tag category UI for custom categories
     await initTagCategoryUI();
     
+    // Create Example directory on startup
+    await createExampleDir();
+    
     // Setup event listeners
     setupEventListeners();
     
     // Bind events to existing import button
     bindImportButtonEvent();
+}
+
+// Create Example directory
+async function createExampleDir() {
+    try {
+        const { invoke } = window.__TAURI__.core;
+        await invoke('get_example_dir');
+    } catch (error) {
+        console.error('Failed to create Example directory:', error);
+    }
 }
 
 function bindImportButtonEvent() {
