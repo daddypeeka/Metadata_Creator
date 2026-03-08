@@ -42,14 +42,14 @@
 
 ```
 Metadata Creator/
-├── tag_categories/          # 标签分类存储
+├── Categories/              # 标签分类存储
 ├── Example/                 # 模板文件
 └── Metadata Creator.exe     # 应用程序
 ```
 
 ## 配置说明
 
-标签分类会自动保存到应用程序目录下的 `tag_categories` 文件夹中。每个标签分类都存储为单独的JSON文件。
+标签分类会自动保存到应用程序目录下的 `Categories` 文件夹中。每个标签分类都存储为单独的JSON文件。
 
 ## 许可证
 

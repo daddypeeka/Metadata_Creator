@@ -42,14 +42,14 @@ A metadata management tool for organizing and managing tag categories.
 
 ```
 Metadata Creator/
-├── tag_categories/          # Tag Category storage
+├── Categories/              # Tag Category storage
 ├── Example/                 # Template files
 └── Metadata Creator.exe     # Application
 ```
 
 ## Configuration
 
-Tag categories are automatically saved to the `tag_categories` folder in the application directory. Each tag category is stored as a separate JSON file.
+Tag categories are automatically saved to the `Categories` folder in the application directory. Each tag category is stored as a separate JSON file.
 
 ## License
 
