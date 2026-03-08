@@ -1,6 +1,6 @@
 {
   "name": "metadata-creator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A metadata management tool for organizing and managing tag categories with built-in templates",
   "author": "Mis Fortune",
   "license": "MIT",
