@@ -165,8 +165,57 @@ async fn delete_tag_category(name: String) -> Result<(), String> {
     Ok(())
 }
 
+// Initialize built-in resources on app startup
+fn initialize_built_in_resources() -> Result<(), String> {
+    // Get the executable directory
+    let exe_path = env::current_exe()
+        .map_err(|e| format!("Failed to get executable path: {}", e))?;
+    
+    let exe_dir = exe_path.parent()
+        .ok_or("Failed to get executable directory".to_string())?;
+    
+    // Get the resources directory (where bundled resources are located)
+    let resources_dir = exe_dir.join("resources");
+    
+    // Initialize Categories directory
+    let categories_dir = exe_dir.join("Categories");
+    if !categories_dir.exists() {
+        fs::create_dir_all(&categories_dir)
+            .map_err(|e| format!("Failed to create Categories directory: {}", e))?;
+    }
+    
+    // Copy built-in tag categories from resources
+    let resources_categories = resources_dir.join("Categories");
+    if resources_categories.exists() {
+        for entry in fs::read_dir(&resources_categories)
+            .map_err(|e| format!("Failed to read resources Categories: {}", e))? {
+            
+            let entry = entry.map_err(|e| format!("Failed to read entry: {}", e))?;
+            let source_path = entry.path();
+            
+            if source_path.is_file() && source_path.extension().unwrap_or_default() == "json" {
+                let file_name = source_path.file_name().unwrap();
+                let target_path = categories_dir.join(file_name);
+                
+                // Only copy if file doesn't exist in target
+                if !target_path.exists() {
+                    fs::copy(&source_path, &target_path)
+                        .map_err(|e| format!("Failed to copy file: {}", e))?;
+                }
+            }
+        }
+    }
+    
+    Ok(())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // Initialize built-in resources before starting the app
+    if let Err(e) = initialize_built_in_resources() {
+        eprintln!("Warning: Failed to initialize built-in resources: {}", e);
+    }
+    
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_dialog::init())

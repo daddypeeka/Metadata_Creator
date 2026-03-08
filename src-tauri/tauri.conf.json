@@ -37,8 +37,7 @@
       "icons/icon.ico"
     ],
     "resources": {
-      "resources/Categories/*": "Categories/",
-      "resources/Example/*": "Example/"
+      "resources/Categories/*": "Categories/"
     },
     "windows": {
       "certificateThumbprint": null,
