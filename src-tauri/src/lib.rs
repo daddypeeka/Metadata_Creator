@@ -73,15 +73,15 @@ async fn get_tag_categories_dir() -> Result<String, String> {
     let exe_dir = exe_path.parent()
         .ok_or("Failed to get executable directory".to_string())?;
     
-    let tag_categories_dir = exe_dir.join("tag_categories");
+    let categories_dir = exe_dir.join("Categories");
     
     // Create directory if it doesn't exist
-    if !tag_categories_dir.exists() {
-        fs::create_dir_all(&tag_categories_dir)
-            .map_err(|e| format!("Failed to create tag categories directory: {}", e))?;
+    if !categories_dir.exists() {
+        fs::create_dir_all(&categories_dir)
+            .map_err(|e| format!("Failed to create Categories directory: {}", e))?;
     }
     
-    Ok(tag_categories_dir.to_str().unwrap().to_string())
+    Ok(categories_dir.to_str().unwrap().to_string())
 }
 
 #[tauri::command]
@@ -98,7 +98,7 @@ async fn get_example_dir() -> Result<String, String> {
     // Create directory if it doesn't exist
     if !example_dir.exists() {
         fs::create_dir_all(&example_dir)
-            .map_err(|e| format!("Failed to create example directory: {}", e))?;
+            .map_err(|e| format!("Failed to create Example directory: {}", e))?;
     }
     
     Ok(example_dir.to_str().unwrap().to_string())
@@ -106,12 +106,12 @@ async fn get_example_dir() -> Result<String, String> {
 
 #[tauri::command]
 async fn list_tag_categories() -> Result<Vec<serde_json::Value>, String> {
-    let tag_categories_dir = get_tag_categories_dir().await?;
-    let tag_categories_path = Path::new(&tag_categories_dir);
+    let categories_dir = get_tag_categories_dir().await?;
+    let categories_path = Path::new(&categories_dir);
     
     let mut tag_categories = Vec::new();
     
-    for entry in fs::read_dir(tag_categories_path)
+    for entry in fs::read_dir(categories_path)
         .map_err(|e| format!("Failed to read directory: {}", e))? {
         
         let entry = entry.map_err(|e| format!("Failed to read entry: {}", e))?;
@@ -133,9 +133,9 @@ async fn list_tag_categories() -> Result<Vec<serde_json::Value>, String> {
 
 #[tauri::command]
 async fn save_tag_category(name: String, tags: Vec<String>) -> Result<(), String> {
-    let tag_categories_dir = get_tag_categories_dir().await?;
+    let categories_dir = get_tag_categories_dir().await?;
     let key = name.to_lowercase().replace(" ", "_");
-    let file_path = Path::new(&tag_categories_dir).join(format!("{}.json", key));
+    let file_path = Path::new(&categories_dir).join(format!("{}.json", key));
     
     let data = serde_json::json!({
         "name": name,
@@ -153,9 +153,9 @@ async fn save_tag_category(name: String, tags: Vec<String>) -> Result<(), String
 
 #[tauri::command]
 async fn delete_tag_category(name: String) -> Result<(), String> {
-    let tag_categories_dir = get_tag_categories_dir().await?;
+    let categories_dir = get_tag_categories_dir().await?;
     let key = name.to_lowercase().replace(" ", "_");
-    let file_path = Path::new(&tag_categories_dir).join(format!("{}.json", key));
+    let file_path = Path::new(&categories_dir).join(format!("{}.json", key));
     
     if file_path.exists() {
         fs::remove_file(&file_path)
@@ -177,25 +177,25 @@ fn initialize_built_in_resources() -> Result<(), String> {
     // Get the resources directory (where bundled resources are located)
     let resources_dir = exe_dir.join("resources");
     
-    // Initialize tag categories directory
-    let tag_categories_dir = exe_dir.join("tag_categories");
-    if !tag_categories_dir.exists() {
-        fs::create_dir_all(&tag_categories_dir)
-            .map_err(|e| format!("Failed to create tag categories directory: {}", e))?;
+    // Initialize Categories directory
+    let categories_dir = exe_dir.join("Categories");
+    if !categories_dir.exists() {
+        fs::create_dir_all(&categories_dir)
+            .map_err(|e| format!("Failed to create Categories directory: {}", e))?;
     }
     
     // Copy built-in tag categories from resources
-    let resources_tag_categories = resources_dir.join("tag_categories");
-    if resources_tag_categories.exists() {
-        for entry in fs::read_dir(&resources_tag_categories)
-            .map_err(|e| format!("Failed to read resources tag categories: {}", e))? {
+    let resources_categories = resources_dir.join("Categories");
+    if resources_categories.exists() {
+        for entry in fs::read_dir(&resources_categories)
+            .map_err(|e| format!("Failed to read resources Categories: {}", e))? {
             
             let entry = entry.map_err(|e| format!("Failed to read entry: {}", e))?;
             let source_path = entry.path();
             
             if source_path.is_file() && source_path.extension().unwrap_or_default() == "json" {
                 let file_name = source_path.file_name().unwrap();
-                let target_path = tag_categories_dir.join(file_name);
+                let target_path = categories_dir.join(file_name);
                 
                 // Only copy if file doesn't exist in target
                 if !target_path.exists() {
@@ -210,14 +210,14 @@ fn initialize_built_in_resources() -> Result<(), String> {
     let example_dir = exe_dir.join("Example");
     if !example_dir.exists() {
         fs::create_dir_all(&example_dir)
-            .map_err(|e| format!("Failed to create example directory: {}", e))?;
+            .map_err(|e| format!("Failed to create Example directory: {}", e))?;
     }
     
     // Copy example files from resources
     let resources_example = resources_dir.join("Example");
     if resources_example.exists() {
         for entry in fs::read_dir(&resources_example)
-            .map_err(|e| format!("Failed to read resources example: {}", e))? {
+            .map_err(|e| format!("Failed to read resources Example: {}", e))? {
             
             let entry = entry.map_err(|e| format!("Failed to read entry: {}", e))?;
             let source_path = entry.path();

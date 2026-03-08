@@ -1,7 +1,7 @@
 [package]
 name = "metadata_creator"
-version = "1.0.0"
-description = "A metadata management tool for organizing and managing tag categories"
+version = "1.1.0"
+description = "A metadata management tool for organizing and managing tag categories with built-in templates"
 authors = ["Mis Fortune"]
 edition = "2021"
 license = "MIT"
